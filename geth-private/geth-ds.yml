@@ -22,12 +22,11 @@ spec:
         - containerPort: 30303
         args:
         - "--datadir=/var/geth"
-        - "--networkid=15"
+        - "--networkid=777"
         - "--rpc"
         - "--rpcaddr=0.0.0.0"
-        - "--rpcapi=admin,db,eth,debug,miner,net,shh,txpool,personal,web3"
         - "--rpccorsdomain=*"
-        # - "-verbosity=6"
+        - "--rpcapi=admin,db,eth,debug,miner,net,shh,txpool,personal,web3"
         resources:
           requests:
             cpu: 100m
@@ -41,7 +40,7 @@ spec:
           initialDelaySeconds: 15
           timeoutSeconds: 5
       - name: geth-auto-peer
-        image: kairen/auto-peer
+        image: asia.gcr.io/izanami-development/auto-peer
         env:
         - name: SERVICE_NAME
           value: "geth"
@@ -76,7 +75,3 @@ spec:
       - name: geth-data
         hostPath:
           path: /var/geth
-      # store to nfs pv
-      # - name: geth-data
-      #   persistentVolumeClaim:
-      #     claimName: geth-pvc
